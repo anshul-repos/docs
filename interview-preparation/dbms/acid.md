@@ -64,3 +64,44 @@ ACID properties ensure reliable processing of database transactions. They stand 
 - **Durability** ensures committed data persists, even after failures.  
 
 ---
+
+
+# ACID Properties in Databases
+
+ACID is a set of properties that guarantee reliable processing of database transactions.  
+It stands for **Atomicity, Consistency, Isolation, and Durability**.
+
+---
+
+## 🔹 Atomicity
+- **Definition:** Ensures that all operations in a transaction are completed successfully. If any operation fails, the entire transaction is rolled back.  
+- **Example:** Money transfer: If debit fails, the credit operation is also rolled back.
+
+---
+
+## 🔹 Consistency
+- **Definition:** Guarantees that a database remains in a valid state before and after a transaction.  
+- **Example:** Ensuring total balance across accounts remains constant after transactions.
+
+---
+
+## 🔹 Isolation
+- **Definition:** Ensures that transactions occur independently without interference, even if executed concurrently.  
+- **Example:** Two users booking the last seat won’t see incomplete states of each other’s transactions.
+
+---
+
+## 🔹 Durability
+- **Definition:** Once a transaction is committed, it is permanently saved in the database, even in the event of a crash.  
+- **Example:** Money transferred to an account remains recorded after a system reboot.
+
+---
+
+## ✅ Summary Table
+
+| Property   | Description                                                                 | Example                                                                 |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| Atomicity  | All operations in a transaction either complete or have no effect.          | Money transfer: If debit fails, credit is also rolled back.             |
+| Consistency| Database remains valid before and after the transaction.                    | Total balance across accounts remains constant after transactions.      |
+| Isolation  | Transactions occur independently without interference.                     | Two users booking the last seat won’t see incomplete states.            |
+| Durability | Committed transactions are permanently saved, even after a crash.           | Money remains recorded after a system reboot.                           |
