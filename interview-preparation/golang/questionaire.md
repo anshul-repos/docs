@@ -577,3 +577,95 @@ func (e *MyError) Error() string {
 | Readers | No         | Yes          |
 | Writers | Yes        | Yes          |
 | Perf    | Lower      | Higher (read-heavy) |
+
+## 65. Common Go (Golang) Pitfalls & How to Avoid Them
+
+This document lists the **most common pitfalls in Go** and how to avoid them.  
+It’s useful for developers working on backend services, microservices, or distributed systems.
+
+---
+
+#### 🔹 1. Ignoring Errors
+Failing to check and handle errors (e.g., `val, _ := someFunc()`) can hide bugs and lead to unpredictable behavior.  
+✅ **Fix**: Always handle errors explicitly for cleaner and more reliable code.
+
+---
+
+#### 🔹 2. Misuse of Goroutines & Channels
+Spawning goroutines without proper synchronization (e.g., `sync.WaitGroup`) or mismanaging channels can lead to goroutine leaks and race conditions.  
+✅ **Fix**: Use `sync.WaitGroup`, context cancellation, and proper channel handling.
+
+---
+
+#### 🔹 3. Variable Shadowing
+Shadowing variables—especially inside loops or after using `:=`—can cause unexpected behavior by masking outer variables.  
+✅ **Fix**: Avoid redeclaration inside nested scopes; prefer explicit variable naming.
+
+---
+
+#### 🔹 4. Deferring Resource Cleanup in Loops
+Using `defer` inside loops can delay cleanup until the function exits, consuming unnecessary resources.  
+✅ **Fix**: Move `defer` into helper functions so cleanup runs per iteration.
+
+---
+
+#### 🔹 5. Overusing Interfaces
+Defining interfaces when only one type implements them adds unnecessary abstraction and complexity.  
+✅ **Fix**: Use interfaces sparingly—mainly when multiple implementations or mocks are needed.
+
+---
+
+#### 🔹 6. Incorrect Slice Handling
+Slices share an underlying array; modifying one slice may affect others unintentionally.  
+✅ **Fix**: Use `copy()` when separate underlying arrays are required.
+
+---
+
+#### 🔹 7. Overusing `init()` Functions
+While `init()` is convenient for setup, excessive use may obscure logic flow and hinder testability.  
+✅ **Fix**: Prefer explicit initializers or constructors.
+
+---
+
+#### 🔹 8. Range Loop Gotchas
+- Using a single variable in `range` yields the **index**, not the value.  
+- Variables declared via `:=` inside `range` can shadow outer ones.  
+✅ **Fix**: Always check whether you need `index`, `value`, or both.
+
+---
+
+#### 🔹 9. HTTP Client Without Timeout
+Using Go’s default `http.Client` without setting timeouts may allow requests to hang indefinitely.  
+✅ **Fix**: Always configure `Timeout` or use context-based deadlines.
+
+---
+
+#### 🔹 10. Not Closing DB Rows / Misconfiguring DB Connections
+Failing to `rows.Close()` prevents releasing connections back to the pool, risking exhaustion.  
+✅ **Fix**: Always `defer rows.Close()` and tune connection pool settings (`SetMaxOpenConns`, `SetMaxIdleConns`, `SetConnMaxLifetime`).
+
+---
+
+#### 🔹 11. Goroutine Leaks
+Unclosed channels or mismanaged goroutines can cause leaks.  
+✅ **Fix**: Use tools like Uber’s `goleak` and `net/http/pprof` to detect leaks.
+
+---
+
+#### 📊 Summary Table
+
+| **Pitfall**                          | **Why It Matters**                                | **Tip**                                            |
+|-------------------------------------|---------------------------------------------------|----------------------------------------------------|
+| Ignoring errors                      | Masks real bugs                                   | Always check `err`                                |
+| Misuse of goroutines/channels        | Leads to races, deadlocks, leaks                  | Use `WaitGroup`, context, and proper channels      |
+| Variable shadowing                   | Causes unexpected logic behavior                  | Avoid redeclaration in nested scopes               |
+| Defer in loops                       | Delays cleanup until function exits               | Use helper functions for cleanup                   |
+| Overusing interfaces                 | Adds unnecessary complexity                        | Use only when multiple implementations are needed  |
+| Unsafe slice usage                   | Unintended shared modifications                   | Copy slices when needed                            |
+| Excessive `init()` usage             | Obscures initialization code                      | Prefer explicit constructors                       |
+| Range loop misuse                    | Value vs index confusion                          | Use both variables or underscore to ignore index   |
+| Missing HTTP timeouts                | Potential for hanging requests                    | Set `Timeout` or use context                       |
+| Not closing DB rows                  | Exhausted DB connections                          | Always `defer rows.Close()`                        |
+| Goroutine leaks                      | Memory/performance degradation                    | Use leak detectors and pprof                       |
+
+---
