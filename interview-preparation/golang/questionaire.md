@@ -83,6 +83,7 @@ It's some other day.
 ---
 
 ### 8.1 Variadic Functions
+- Functions that accept a variable number of arguments using `...`
 ```go
 func sum(nums ...int) int {
     total := 0
