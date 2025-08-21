@@ -80,7 +80,9 @@ It's some other day.
 - Anonymous functions
 - Variadic functions
 
-**Variadic Example:**
+---
+
+### 8.1 Variadic Functions
 ```go
 func sum(nums ...int) int {
     total := 0
@@ -90,6 +92,48 @@ func sum(nums ...int) int {
     return total
 }
 ```
+
+---
+
+### 8.2 Closures
+
+- A special kind of anonymous function that captures variables from its surrounding scope and can use them even after that scope has ended.
+- The captured variables live as long as the closure itself lives.
+
+```go
+func main() {
+    adder := func() func(int) int {
+        sum := 0
+        return func(x int) int {
+            sum += x
+            return sum
+        }
+    }
+    a := adder()
+    fmt.Println(a(1)) // 1
+    fmt.Println(a(2)) // 3
+}
+```
+Here:
+
+- The returned function is anonymous, but it also captures and remembers count from counter().
+- This makes it a closure.
+
+---
+
+### 8.3 Anonymous Function
+
+- A function without a name.
+- It can be assigned to a variable, passed as an argument, or used immediately (IIFE — Immediately Invoked Function Expression).
+- By itself, it doesn’t necessarily capture variables from outside its scope.
+- Example:
+```go
+f := func(a, b int) int {
+    return a + b
+}
+fmt.Println(f(2, 3)) // 5
+```
+- Here, func(a, b int) int { ... } is anonymous because it has no name.
 
 ---
 
@@ -260,50 +304,21 @@ fmt.Println(**p2) // 100
 
 ---
 
-## 27. Variadic Functions
-```go
-func sum(nums ...int) int {
-    total := 0
-    for _, n := range nums {
-        total += n
-    }
-    return total
-}
-```
-
----
-
-## 28. Closures
-```go
-func main() {
-    adder := func() func(int) int {
-        sum := 0
-        return func(x int) int {
-            sum += x
-            return sum
-        }
-    }
-    a := adder()
-    fmt.Println(a(1)) // 1
-    fmt.Println(a(2)) // 3
-}
-```
-
----
-
-## 29. Defer, Panic & Recover
+## 27. Defer, Panic & Recover
 - **Defer:** Executes after surrounding function returns.
 - **Panic:** Stops execution, triggers defers.
 - **Recover:** Recovers from panic inside deferred function.
 
-## 29. Nested Goroutines Behavior
+---
+
+## 28. Nested Goroutines Behavior
 - Goroutines inside other goroutines still run concurrently.
 - The parent goroutine does **not** wait for the child automatically.
 - Use `sync.WaitGroup` or channels to coordinate execution.
 
 ---
 
-## 30. Connection Pooling
+## 29. Connection Pooling
 - Reduces overhead of creating new DB connections.
 - In Go (`database/sql`):
   - `db.SetMaxOpenConns(n)` → max open connections.
@@ -312,7 +327,7 @@ func main() {
 
 ---
 
-## 31. Identifying Issues in Long SQL Queries
+## 30. Identifying Issues in Long SQL Queries
 - Use `EXPLAIN` to analyze query execution plan.
 - Look for:
   - Full table scans.
@@ -322,7 +337,7 @@ func main() {
 
 ---
 
-## 32. Pagination with LIMIT and OFFSET
+## 31. Pagination with LIMIT and OFFSET
 ```sql
 SELECT * FROM users ORDER BY id LIMIT 10 OFFSET 20;
 ```
@@ -332,41 +347,41 @@ SELECT * FROM users ORDER BY id LIMIT 10 OFFSET 20;
 
 ---
 
-## 33. Buffered vs Unbuffered Channels
+## 32. Buffered vs Unbuffered Channels
 - **Unbuffered**: Sender waits until receiver is ready.
 - **Buffered**: Sender does not block until buffer is full.
 
 ---
 
-## 34. Deep Copy vs Shallow Copy
+## 33. Deep Copy vs Shallow Copy
 - **Shallow copy**: Copies references, changes affect original.
 - **Deep copy**: Copies actual data, changes don’t affect original.
 - Use deep copy for independent objects.
 
 ---
 
-## 35. Garbage Collection in Go
+## 34. Garbage Collection in Go
 - Uses **tri-color tracing** and **mark-and-sweep**.
 - Automatically frees memory of unreachable objects.
 - Optimized for low pause times.
 
 ---
 
-## 36. Purpose of Go Modules
+## 35. Purpose of Go Modules
 - Dependency management system.
 - Each project has a `go.mod` file.
 - Handles versioning and reproducible builds.
 
 ---
 
-## 37. Context
+## 36. Context
 - Used for deadlines, cancellations, request-scoped values.
 - Functions: `context.WithCancel`, `context.WithDeadline`, `context.WithTimeout`.
 - Propagates cancellation across goroutines.
 
 ---
 
-## 38. Type Assertion
+## 37. Type Assertion
 ```go
 var i interface{} = "hello"
 s := i.(string) // type assertion
@@ -376,14 +391,14 @@ s := i.(string) // type assertion
 
 ---
 
-## 39. Reflection Package
+## 38. Reflection Package
 - Inspect and manipulate types at runtime.
 - `reflect.TypeOf()` and `reflect.ValueOf()`.
 - Useful for generic libraries and serialization.
 
 ---
 
-## 40. Type Conversion
+## 39. Type Conversion
 ```go
 var x int = 10
 var y float64 = float64(x)
@@ -393,13 +408,13 @@ var y float64 = float64(x)
 
 ---
 
-## 41. Worker Pool / Task Jobs Implementation
+## 40. Worker Pool / Task Jobs Implementation
 - Pattern for limiting concurrent goroutines.
 - Example: Workers read jobs from a channel, process, and write results.
 
 ---
 
-## 42. Designing High Concurrency System
+## 41. Designing High Concurrency System
 - Use goroutines + channels.
 - Connection pooling.
 - Load balancing.
@@ -408,27 +423,27 @@ var y float64 = float64(x)
 
 ---
 
-## 43. Coding Example
+## 42. Coding Example
 **Input:** `s = "helloArray"`
 **Output:** `h1e1ll2o1A1rr2a1y1`
 - Use map to count character frequencies.
 
 ---
 
-## 44. Datatypes in Go
+## 43. Datatypes in Go
 - Basic: `int`, `float`, `string`, `bool`.
 - Composite: `array`, `slice`, `map`, `struct`.
 - Reference: `pointer`, `interface`, `channel`.
 
 ---
 
-## 45. Methods vs Functions
+## 44. Methods vs Functions
 - **Function**: Independent, not tied to a type.
 - **Method**: Has a receiver, associated with a type.
 
 ---
 
-## 46. Features of Go and Concurrency
+## 45. Features of Go and Concurrency
 - Lightweight goroutines.
 - Channels for communication.
 - Select statement.
@@ -436,14 +451,14 @@ var y float64 = float64(x)
 
 ---
 
-## 47. gRPC vs HTTP
+## 46. gRPC vs HTTP
 - **HTTP/REST**: Human-readable, JSON.
 - **gRPC**: Uses Protobuf, faster, binary, HTTP/2.
 - gRPC better for microservices.
 
 ---
 
-## 48. Structs
+## 47. Structs
 - Custom data type grouping fields.
 ```go
 type Person struct {
@@ -454,7 +469,7 @@ type Person struct {
 
 ---
 
-## 49. Exception Handling in Go
+## 48. Exception Handling in Go
 - Go uses **errors**, **panic**, **recover**, **defer**.
 - Example:
 ```go
@@ -468,70 +483,70 @@ panic("Something went wrong")
 
 ---
 
-## 50. String Literals
+## 49. String Literals
 - **Interpreted** (`"Hello"`) → supports escape chars.
 - **Raw** (`` `Hello` ``) → multi-line, no escaping.
 
 ---
 
-## 51. `init` in Go
+## 50. `init` in Go
 - Runs before `main()`.
 - Can have multiple `init()` per package.
 - Used for setup.
 
 ---
 
-## 52. sync.Map
+## 51. sync.Map
 - Concurrent-safe map.
 - Optimized for frequent reads & occasional writes.
 - Methods: `Store`, `Load`, `Delete`, `Range`.
 
 ---
 
-## 53. Mutex vs Semaphore
+## 52. Mutex vs Semaphore
 - **Mutex**: One goroutine at a time.
 - **Semaphore**: Allows multiple goroutines up to a limit.
 
 ---
 
-## 54. Deferred Calls
+## 53. Deferred Calls
 - Executed in **reverse order (LIFO)**.
 
 ---
 
-## 55. Goroutines vs Threads
+## 54. Goroutines vs Threads
 - Goroutines: lightweight, small stack, managed by Go runtime.
 - Threads: OS-managed, heavier.
 
 ---
 
-## 56. Managing Concurrency & Race Conditions
+## 55. Managing Concurrency & Race Conditions
 - Use `sync.Mutex`.
 - Detect with `go run -race`.
 
 ---
 
-## 57. REST vs gRPC
+## 56. REST vs gRPC
 - REST: Flexible, human-readable.
 - gRPC: High performance, strict contracts, binary.
 
 ---
 
-## 58. Unit Testing with Ginkgo & Gomega
+## 57. Unit Testing with Ginkgo & Gomega
 - Ginkgo → BDD framework.
 - Gomega → expressive matchers.
 - Mock dependencies, cover edge cases.
 
 ---
 
-## 59. Structuring Large Projects
+## 58. Structuring Large Projects
 - Follow **Clean Architecture**.
 - Folder structure: `/cmd`, `/pkg`, `/internal`, `/api`.
 - Use Go modules for versioning.
 
 ---
 
-## 60. Common Slice Operations
+## 59. Common Slice Operations
 - Create, index, slice.
 - Append elements / slices.
 - Copy slices.
@@ -539,13 +554,13 @@ panic("Something went wrong")
 
 ---
 
-## 61. Panic and Defer
+## 60. Panic and Defer
 - **Panic**: Stops normal execution.
 - **Defer**: Runs before function exit (LIFO).
 
 ---
 
-## 62. Error Handling
+## 61. Error Handling
 - Standard: return `error`.
 - Custom errors implement `Error()`.
 - Example:
@@ -561,14 +576,14 @@ func (e *MyError) Error() string {
 
 ---
 
-## 63. Race Conditions & Deadlocks
+## 62. Race Conditions & Deadlocks
 - **Race**: Multiple goroutines modify shared memory.
 - **Deadlock**: Goroutines wait indefinitely.
 - Detect race with `-race` flag.
 
 ---
 
-## 64. Types of Mutex
+## 63. Types of Mutex
 - **sync.Mutex**: Exclusive access.
 - **sync.RWMutex**: Multiple readers or one writer.
 
@@ -578,81 +593,83 @@ func (e *MyError) Error() string {
 | Writers | Yes        | Yes          |
 | Perf    | Lower      | Higher (read-heavy) |
 
-## 65. Common Go (Golang) Pitfalls & How to Avoid Them
+---
+
+## 64. Common Go (Golang) Pitfalls & How to Avoid Them
 
 This document lists the **most common pitfalls in Go** and how to avoid them.  
 It’s useful for developers working on backend services, microservices, or distributed systems.
 
 ---
 
-#### 🔹 1. Ignoring Errors
+### 64.1 Ignoring Errors
 Failing to check and handle errors (e.g., `val, _ := someFunc()`) can hide bugs and lead to unpredictable behavior.  
 ✅ **Fix**: Always handle errors explicitly for cleaner and more reliable code.
 
 ---
 
-#### 🔹 2. Misuse of Goroutines & Channels
+### 64.2 Misuse of Goroutines & Channels
 Spawning goroutines without proper synchronization (e.g., `sync.WaitGroup`) or mismanaging channels can lead to goroutine leaks and race conditions.  
 ✅ **Fix**: Use `sync.WaitGroup`, context cancellation, and proper channel handling.
 
 ---
 
-#### 🔹 3. Variable Shadowing
+### 64.3 Variable Shadowing
 Shadowing variables—especially inside loops or after using `:=`—can cause unexpected behavior by masking outer variables.  
 ✅ **Fix**: Avoid redeclaration inside nested scopes; prefer explicit variable naming.
 
 ---
 
-#### 🔹 4. Deferring Resource Cleanup in Loops
+### 64.4 Deferring Resource Cleanup in Loops
 Using `defer` inside loops can delay cleanup until the function exits, consuming unnecessary resources.  
 ✅ **Fix**: Move `defer` into helper functions so cleanup runs per iteration.
 
 ---
 
-#### 🔹 5. Overusing Interfaces
+### 64.5 Overusing Interfaces
 Defining interfaces when only one type implements them adds unnecessary abstraction and complexity.  
 ✅ **Fix**: Use interfaces sparingly—mainly when multiple implementations or mocks are needed.
 
 ---
 
-#### 🔹 6. Incorrect Slice Handling
+### 64.6 Incorrect Slice Handling
 Slices share an underlying array; modifying one slice may affect others unintentionally.  
 ✅ **Fix**: Use `copy()` when separate underlying arrays are required.
 
 ---
 
-#### 🔹 7. Overusing `init()` Functions
+### 64.7 Overusing `init()` Functions
 While `init()` is convenient for setup, excessive use may obscure logic flow and hinder testability.  
 ✅ **Fix**: Prefer explicit initializers or constructors.
 
 ---
 
-#### 🔹 8. Range Loop Gotchas
+### 64.8 Range Loop Gotchas
 - Using a single variable in `range` yields the **index**, not the value.  
 - Variables declared via `:=` inside `range` can shadow outer ones.  
 ✅ **Fix**: Always check whether you need `index`, `value`, or both.
 
 ---
 
-#### 🔹 9. HTTP Client Without Timeout
+### 64.9 HTTP Client Without Timeout
 Using Go’s default `http.Client` without setting timeouts may allow requests to hang indefinitely.  
 ✅ **Fix**: Always configure `Timeout` or use context-based deadlines.
 
 ---
 
-#### 🔹 10. Not Closing DB Rows / Misconfiguring DB Connections
+### 64.10 Not Closing DB Rows / Misconfiguring DB Connections
 Failing to `rows.Close()` prevents releasing connections back to the pool, risking exhaustion.  
 ✅ **Fix**: Always `defer rows.Close()` and tune connection pool settings (`SetMaxOpenConns`, `SetMaxIdleConns`, `SetConnMaxLifetime`).
 
 ---
 
-#### 🔹 11. Goroutine Leaks
+### 64.11 Goroutine Leaks
 Unclosed channels or mismanaged goroutines can cause leaks.  
 ✅ **Fix**: Use tools like Uber’s `goleak` and `net/http/pprof` to detect leaks.
 
 ---
 
-#### 📊 Summary Table
+### 64.12 Summary Table
 
 | **Pitfall**                          | **Why It Matters**                                | **Tip**                                            |
 |-------------------------------------|---------------------------------------------------|----------------------------------------------------|
@@ -667,5 +684,3 @@ Unclosed channels or mismanaged goroutines can cause leaks.
 | Missing HTTP timeouts                | Potential for hanging requests                    | Set `Timeout` or use context                       |
 | Not closing DB rows                  | Exhausted DB connections                          | Always `defer rows.Close()`                        |
 | Goroutine leaks                      | Memory/performance degradation                    | Use leak detectors and pprof                       |
-
----
