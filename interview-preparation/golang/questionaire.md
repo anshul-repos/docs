@@ -170,9 +170,20 @@ fmt.Println(f(2, 3)) // 5
 ---
 
 ## 13. make() vs new()
-- **make:** Allocates and initializes memory for slices, maps, channels. Returns value.
-- **new:** Allocates memory, does not initialize. Returns pointer.
-
+- **make:**
+- Allocates and initializes memory for `slices, maps, channels only` (cannot be used for arrays or structs).
+- Returns value.
+    ```go
+    s := make([]int, 3)
+    ```
+- **new:** 
+- Allocates memory, does not initialize.
+- For simple types like `int, struct, float64, etc`
+- Returns pointer.
+  ```go
+  p := new(int)
+  ````
+  -  p is of type *int
 ---
 
 ## 14. Delete a Key from Map
@@ -215,6 +226,9 @@ value, ok := myMap[key]
 ---
 
 ## 19. Shadowing in Go
+- Shadowing happens when you declare a new variable with the same name as an existing variable in an inner scope.
+- The new variable “shadows” the outer one, making the outer variable inaccessible in that scope.
+- Example:
 ```go
 x := 10
 fmt.Println("Outer x:", x)
@@ -685,3 +699,12 @@ Unclosed channels or mismanaged goroutines can cause leaks.
 | Missing HTTP timeouts                | Potential for hanging requests                    | Set `Timeout` or use context                       |
 | Not closing DB rows                  | Exhausted DB connections                          | Always `defer rows.Close()`                        |
 | Goroutine leaks                      | Memory/performance degradation                    | Use leak detectors and pprof                       |
+
+
+### 65. 3 ways to stop goroutines:
+
+- `Done channel` → Send/close a channel to signal the goroutine to exit gracefully.
+
+- `Context` (context.WithCancel/Timeout) → Standard Go way to cancel goroutines, with optional deadlines/timeouts.
+
+- `Quit + Done channels` → Send a stop signal via one channel and wait for acknowledgment via another (bi-directional control).
