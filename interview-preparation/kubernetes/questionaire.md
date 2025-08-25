@@ -4,35 +4,7 @@ A collection of commonly asked Kubernetes interview questions with detailed answ
 
 ---
 
-## 1️⃣ How to Monitor a Kubernetes Cluster?
-
-- **kubectl commands:**
-  ```bash
-  kubectl top nodes
-  kubectl top pods
-  ```
-
-- Metrics Server → Collects resource metrics (CPU, memory), required for HPA.
-
-- Logging & Monitoring tools:
-
-        Prometheus + Grafana → Metrics, dashboards
-
-        ELK/EFK stack → Centralized logging
-
-        Kube-state-metrics → Cluster state info
-
-        Jaeger / Zipkin → Tracing
-
-## 2️⃣ How to Get Logs from a Pod?
-
-```bash
-kubectl logs <pod-name> -n <namespace>
-kubectl logs <pod-name> -c <container-name> -n <namespace>
-kubectl logs <pod-name> --all-containers -n <namespace>
-```
-
-## 3️⃣ Kubernetes Architecture & Components
+## 1️⃣ Kubernetes Architecture & Components
 
 - Control Plane (Master Node):
 
@@ -51,6 +23,34 @@ kubectl logs <pod-name> --all-containers -n <namespace>
         kube-proxy → Networking (Services, load balancing)
 
         Container Runtime → Docker, containerd, CRI-O
+
+## 2️⃣ How to Get Logs from a Pod?
+
+```bash
+kubectl logs <pod-name> -n <namespace>
+kubectl logs <pod-name> -c <container-name> -n <namespace>
+kubectl logs <pod-name> --all-containers -n <namespace>
+```
+
+## 3️⃣ How to Monitor a Kubernetes Cluster?
+
+- **kubectl commands:**
+  ```bash
+  kubectl top nodes
+  kubectl top pods
+  ```
+
+- Metrics Server → Collects resource metrics (CPU, memory), required for HPA.
+
+- Logging & Monitoring tools:
+
+        Prometheus + Grafana → Metrics, dashboards
+
+        ELK/EFK stack → Centralized logging
+
+        Kube-state-metrics → Cluster state info
+
+        Jaeger / Zipkin → Tracing
 
 ## 4️⃣ Role of Load Balancers in Kubernetes
 
