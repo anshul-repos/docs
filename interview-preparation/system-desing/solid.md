@@ -117,11 +117,12 @@ type PaymentMethod interface {
 
 type CreditCard struct{}
 
+type PayPal struct{}
+
+
 func (c CreditCard) Pay(amount float64) {
     fmt.Println("Paid with Credit Card:", amount)
 }
-
-type PayPal struct{}
 
 func (p PayPal) Pay(amount float64) {
     fmt.Println("Paid with PayPal:", amount)
@@ -142,10 +143,11 @@ func (g GiftCard) Pay(amount float64) {
     }
     fmt.Println("Paid with Gift Card:", amount)
 }
+
 ```
 ## 4️⃣ Interface Segregation Principle (ISP)
 
-Clients should not be forced to depend on interfaces they don’t use.
+Methods should not be forced to depend on interfaces they don’t use.
 
 ❌ Bad Example: One interface forces unnecessary methods.
 
@@ -234,3 +236,36 @@ func (s Switch) Toggle() {
     ISP → Prefer smaller, specific interfaces.
 
     DIP → Depend on abstractions, not concrete implementations.
+
+
+
+## Simple Understanding:
+
+    1. Single Responsibility Principle: 
+        a class/struct should have one reason to change
+    
+        Bad Example: One struct handling multiple responsibilities
+        Good Example: Split into smaller structs with clear responsibilities
+
+    2. Open Closed Principle:
+        Entities should be open for extension but close for modification
+
+        Example: Payment system supporting multiple payment methods
+
+    3. Liskov Substitution Principle:
+        Subclasses should be substitutable for their base classes
+
+        Bad Example (Violation): GiftCard panics if balance is insufficient → breaks expected behavior.
+        Good Example: All payment methods implement PaymentMethod correctly.
+
+    4. Interface Segregation Principle:
+        Methods should not be forced to depend on interfaces they don't use
+
+        Bad Example: One interface forces unnecessary methods.
+        Good Example: Split into smaller interfaces.
+
+    5. Dependency Inversion Principle:
+        High-level modules(struct) should not depend on low-level modules.
+
+        Bad Example: Switch depends directly on LightBulb
+        Good Example: Use abstraction (SwitchableDevice).
