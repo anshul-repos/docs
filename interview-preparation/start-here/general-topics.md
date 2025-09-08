@@ -29,3 +29,23 @@
 | **Maintenance**          | Can become complex over time as the codebase grows and changes need to be managed carefully.                 | Easier to maintain individual services, but requires careful management of dependencies and versioning.                 |
 | **Performance**          | Lower latency due to tight integration but may struggle under high load.                                     | Higher latency due to network calls between services but is better suited for high load through scaling.                |
 | **Use Cases**            | Suitable for smaller, simpler applications.                                                                  | Ideal for large, complex, and evolving systems.                                                                         |
+
+
+
+# Error Codes
+
+    200 OK → Success
+
+    201 Created → Resource created successfully
+
+    400 Bad Request → Client sent invalid request
+
+    401 Unauthorized → Authentication required
+
+    403 Forbidden → You don’t have permission
+
+    404 Not Found → Resource doesn’t exist
+
+    500 Internal Server Error → Server crashed or misconfigured
+
+    503 Service Unavailable → Server overloaded or under maintenance
