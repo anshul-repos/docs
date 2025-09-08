@@ -109,6 +109,7 @@ Subclasses should be substitutable for their base classes without breaking the s
 
 ✅ Good Example:
 All payment methods implement PaymentMethod correctly.
+
 ```go
 type PaymentMethod interface {
     Pay(amount float64)
