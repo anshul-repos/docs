@@ -36,6 +36,12 @@ c. **Partition tolerance** means that the system can continue operating even if 
 - **Examples:** Single-node relational databases.  
 
 
+
+---
+
+
+### NOTES:
+
 1. **Consistency** (C): All nodes always have the same data.
 2. **Availability** (A): Every request receives a response, regardless of failure.
 3. **Partition Tolerance** (P): The system works even when partitions exist.
