@@ -41,7 +41,9 @@ Process:
 • A context in Go is a way to pass:
 
     1. request-scoped data
+
     2. cancellation signals
+    
     3. deadlines across API boundaries and between goroutines.
     
 • Context is commonly used in functions that perform long-running or concurrent operations, such as HTTP handlers, database queries, and more.
@@ -57,7 +59,7 @@ Process:
     4. context.WithTimeout(): context will be automatically canceled when the specified duration elapses
 
     5. context.WithDeadline(): context that will be canceled at the specified time
-    
+
     6. context.WithValue(): context that carries a key-value pair, useful for passing request-scoped data
     
 
