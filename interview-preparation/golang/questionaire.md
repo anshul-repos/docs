@@ -1,7 +1,7 @@
 # Golang Notes
 
 ## 1. GO Latest Version
-- **1.24**
+- **1.25**
 
 ---
 
@@ -709,3 +709,26 @@ Unclosed channels or mismanaged goroutines can cause leaks.
 - `Context` (context.WithCancel/Timeout) → Standard Go way to cancel goroutines, with optional deadlines/timeouts.
 
 - `Quit + Done channels` → Send a stop signal via one channel and wait for acknowledgment via another (bi-directional control).
+
+
+
+
+---
+
+
+# Others
+
+  ## major updates in Go 1.25 – August 12, 2025
+
+| Area                 | Highlights |
+|----------------------|------------|
+| **Language**         | Removed the concept of "core types" in favor of clearer prose in the spec :contentReference[oaicite:0]{index=0} |
+| **Toolchain**        | `go build -asan` now enables leak detection by default, reporting memory leaks from C—even after program exit (can be disabled with `ASAN_OPTIONS=detect_leaks=0`) :contentReference[oaicite:1]{index=1} |
+| **Runtime & GC**     | Experimental enhancements: new garbage collector, runtime improvements including smarter `GOMAXPROCS` behavior :contentReference[oaicite:2]{index=2} |
+| **`encoding/json/v2`** | New experimental JSON API is available under the `GOEXPERIMENT=jsonv2` flag :contentReference[oaicite:3]{index=3} |
+| **Debug Info**       | DWARF v5 format now used by default for debug information :contentReference[oaicite:4]{index=4} |
+| **Testing**          | Added stable `testing/synctest` package for testing concurrent code :contentReference[oaicite:5]{index=5} |
+| **HTTP Enhancements**| Introduced `net/http.CrossOriginProtection` for CSRF defense—no tokens or cookies required :contentReference[oaicite:6]{index=6} |
+| **Sync Convenience** | Added `sync.WaitGroup.Go` as a shortcut for launching goroutines tied to `WaitGroup` :contentReference[oaicite:7]{index=7} |
+| **Flight Recorder**  | Flight recorder API introduced for lightweight execution tracing :contentReference[oaicite:8]{index=8} |
+
