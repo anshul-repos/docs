@@ -103,22 +103,23 @@ func sum(nums ...int) int {
 
 ```go
 func main() {
-    adder := func() func(int) int {
-        sum := 0
+    counter := func() func(int) int {
+        count := 0
         return func(x int) int {
-            sum += x
-            return sum
+            count += x
+            return count
         }
     }
-    a := adder()
-    fmt.Println(a(1)) // 1
-    fmt.Println(a(2)) // 3
+    c := counter()
+    fmt.Println(c(1)) // 1
+    fmt.Println(c(2)) // 3
 }
 ```
 Here:
 
 - The returned function is anonymous, but it also captures and remembers count from counter().
-- This makes it a closure.
+- Even after counter() has finished executing, the returned function still has access to count.
+- This is exactly what a closure does: it “closes over” variables from its surrounding scope.
 
 ---
 
