@@ -92,7 +92,7 @@ Pods can auto-scale based on:
 
 ## 📌 Versions
 
-- **Latest Kubernetes Version**: `v1.31`  
+- **Latest Kubernetes Version**: `v1.34` released on Aug 27, 2025.  
 
 ---
 
