@@ -364,15 +364,28 @@ SELECT * FROM users ORDER BY id LIMIT 10 OFFSET 20;
 ---
 
 ## 32. Buffered vs Unbuffered Channels
-- **Unbuffered**: Sender waits until receiver is ready.
-- **Buffered**: Sender does not block until buffer is full.
+- **Unbuffered**:
+  - No capacity (capacity = 0).
+  - Send and receive operations block until the other side is ready.
+  - Good for synchronization between goroutines.
+  - Example: `ch := make(chan string)` // unbuffered
+- **Buffered**: 
+  - Have capacity > 0.
+  - Sender does not block until buffer is full.
+  - A sender can place up to capacity values without blocking.
+  - A receiver can take values later, until the buffer is empty.
+  - Good for queueing work or decoupling senders and receivers.
 
 ---
 
 ## 33. Deep Copy vs Shallow Copy
-- **Shallow copy**: Copies references, changes affect original.
-- **Deep copy**: Copies actual data, changes don’t affect original.
-- Use deep copy for independent objects.
+- **Shallow copy**:
+    - A shallow copy just copies references/pointers to underlying data.
+    - Modifying the copied object may also modify the original, since both point to the same memory.
+- **Deep copy**: 
+    - A deep copy creates a completely new object with its own memory.
+    - Modifying the copy does not affect the original.
+    - Use deep copy for independent objects.
 
 ---
 
