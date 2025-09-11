@@ -311,6 +311,11 @@ c := make(chan string, 2) // buffered
 ---
 
 ## 26. Pointer to Pointer
+
+- `var v int = 100` → A normal integer.
+- `var p1 *int = &v` → p1 is a pointer to v.
+- `var p2 **int = &p1` → p2 is a pointer to a pointer. It points to p1, which in turn points to v. So the chain looks like: `p2 → p1 → v (100)`
+
 ```go
 var v int = 100
 var p1 *int = &v
