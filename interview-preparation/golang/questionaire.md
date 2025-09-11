@@ -375,6 +375,7 @@ SELECT * FROM users ORDER BY id LIMIT 10 OFFSET 20;
   - A sender can place up to capacity values without blocking.
   - A receiver can take values later, until the buffer is empty.
   - Good for queueing work or decoupling senders and receivers.
+  - Example: `ch := make(chan int,10)` // buffered with capacity 2
 
 ---
 
