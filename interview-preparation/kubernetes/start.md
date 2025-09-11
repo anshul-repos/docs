@@ -109,6 +109,9 @@ Pods can auto-scale based on:
 
 ## 🏗️ Kubernetes Architecture Diagram
 
+![alt text](k8sarch.png)
+
+
 ```mermaid
 flowchart TB
     subgraph Master["Master Node (Control Plane)"]
@@ -142,3 +145,4 @@ flowchart TB
 
     Proxy1 <--> Pod1
     Proxy2 <--> Pod2
+  ```
