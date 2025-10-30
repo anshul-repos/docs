@@ -730,6 +730,14 @@ Unclosed channels or mismanaged goroutines can cause leaks.
 - `Quit + Done channels` → Send a stop signal via one channel and wait for acknowledgment via another (bi-directional control).
 
 
+### 66. Why Go Maps Are Not Safe for Concurrency
+
+- A Go map is not designed with internal synchronization. 
+  When multiple goroutines try to:
+  Read and write at the same time, or
+  Write to it concurrently
+the map’s internal state can become inconsistent — leading to runtime panics
+
 
 
 ---
