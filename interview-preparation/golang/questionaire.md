@@ -734,11 +734,13 @@ Unclosed channels or mismanaged goroutines can cause leaks.
 
 - A Go map is not designed with internal synchronization. 
   When multiple goroutines try to:
-  Read and write at the same time, or
-  Write to it concurrently
+
+      Read and write at the same time
+
+      Write to it concurrently
 the map’s internal state can become inconsistent — leading to runtime panics
 
-- This happens because Go maps internally manage hash buckets, and modifying them while another goroutine is reading/writing can corrupt memory or lead to race conditions.
+- This happens because `Go maps internally manage hash buckets`, and modifying them while another goroutine is reading/writing can corrupt memory or lead to race conditions.
 
 - How to Use Maps Safely in Concurrency
   - Use sync.Mutex or sync.RWMutex
