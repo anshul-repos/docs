@@ -157,3 +157,8 @@ Auto Scaling (HPA):
 ```bash
 kubectl autoscale deployment <deployment-name> --cpu-percent=80 --min=2 --max=10
 ```
+
+## Kubectl cmds
+
+- how to edit pod image
+- how to check running services in kubernetes
