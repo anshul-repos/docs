@@ -104,3 +104,15 @@ INSERT INTO users (name, age) VALUES ('Anshul', 30);
 SELECT * FROM users;
 
 Exit with \q
+
+
+## SQL commands
+
+### 1. Delete: 
+Deletes only the rows that match the condition.
+
+### 2. Truncate: 
+Removes all rows from a table, but keeps the table structure for future use.
+
+### 3. Drop:
+Removes the table definition and all its data permanently.

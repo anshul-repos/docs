@@ -200,3 +200,12 @@ func (h *UserHandler) GetProfile(w http.ResponseWriter, r *http.Request) {
 ✅ **Summary:**  
 - **SQL** is best for structured, relational data where ACID transactions and complex queries are needed.  
 - **NoSQL** is preferred for unstructured or semi-structured data, horizontal scalability, and real-time applications.  
+
+
+## 4) Security strategies while writing APIs
+
+1. Authentication: use of JWT auth (& Authorization)
+2. Use HTTPS or gRPC with TLS
+3. Input Field Validations
+4. Prevent know/common vulnerabilities via 3rd party libraries
+5. Use rate limiter
